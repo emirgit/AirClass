@@ -1,0 +1,15 @@
+debug/attendancemanager.o
+debug/gestureprocessor.o
+debug/main.o
+debug/mainwindow.o
+debug/presentationmanager.o
+debug/student.o
+debug/uicontroller.o
+debug/websocketclient.o
+debug/qrc_qmake_qmake_qm_files.o
+debug/moc_attendancemanager.o
+debug/moc_gestureprocessor.o
+debug/moc_mainwindow.o
+debug/moc_presentationmanager.o
+debug/moc_uicontroller.o
+debug/moc_websocketclient.o

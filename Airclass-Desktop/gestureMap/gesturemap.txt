@@ -1,0 +1,30 @@
+# Fixed Gestures
+three_gun next_slide 1
+inv_three_gun prev_slide 1
+one drawing
+two_up point
+like accept
+dislike decline
+take_picture attendance
+palm attention
+zoom_in zoom_in
+zoom_out zoom_out
+zoom_reset zoom_reset
+up up
+down down
+left left
+right right
+
+# Customizable Gestures
+timeout break 10
+call
+ok
+heart
+heart2
+mid_finger
+four
+rock break 10
+thumb_index
+holy
+three
+three2

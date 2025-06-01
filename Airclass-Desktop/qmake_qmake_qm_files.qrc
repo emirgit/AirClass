@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="i18n">
+<file alias="AirClassMay2_en_US.qm">/Users/hs/Documents/GitHub/airclass_desktop/.qm/AirClassMay2_en_US.qm</file>
+<file alias="AirClassMay2_tr_TR.qm">/Users/hs/Documents/GitHub/airclass_desktop/.qm/AirClassMay2_tr_TR.qm</file>
+</qresource>
+</RCC>

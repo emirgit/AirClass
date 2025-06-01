@@ -1,0 +1,25 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/gestureGuidePictures">
+        <file>gestureGuidePictures/call.png</file>
+        <file>gestureGuidePictures/holy.png</file>
+        <file>gestureGuidePictures/one.png</file>
+        <file>gestureGuidePictures/three_gun.png</file>
+        <file>gestureGuidePictures/dislike.png</file>
+        <file>gestureGuidePictures/inv_three_gun.png</file>
+        <file>gestureGuidePictures/palm.png</file>
+        <file>gestureGuidePictures/three.png</file>
+        <file>gestureGuidePictures/four.png</file>
+        <file>gestureGuidePictures/like.png</file>
+        <file>gestureGuidePictures/rock.png</file>
+        <file>gestureGuidePictures/thumb_index.png</file>
+        <file>gestureGuidePictures/heart2.png</file>
+        <file>gestureGuidePictures/mid_finger.png</file>
+        <file>gestureGuidePictures/take_picture.png</file>
+        <file>gestureGuidePictures/timeout.png</file>
+        <file>gestureGuidePictures/heart.png</file>
+        <file>gestureGuidePictures/ok.png</file>
+        <file>gestureGuidePictures/three2.png</file>
+        <file>gestureGuidePictures/two_up.png</file>
+    </qresource>
+</RCC>

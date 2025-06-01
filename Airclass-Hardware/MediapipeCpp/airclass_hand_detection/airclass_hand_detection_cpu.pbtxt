@@ -1,0 +1,88 @@
+# MediaPipe graph that performs hand tracking and thumbs up detection
+# Desktop CPU application.
+
+# Input image. (ImageFrame)
+input_stream: "input_video"
+
+# Output image with rendered results. (ImageFrame)
+output_stream: "output_video"
+# Gesture recognition output
+output_stream: "detected_gesture"
+
+# Defines side packet for hand detection (process 1 hand).
+node {
+  calculator: "ConstantSidePacketCalculator"
+  output_side_packet: "PACKET:num_hands"
+  node_options: {
+    [type.googleapis.com/mediapipe.ConstantSidePacketCalculatorOptions]: {
+      packet { int_value: 2 }
+    }
+  }
+}
+
+# Detects and tracks hands using the full hand landmark model.
+node {
+  calculator: "HandLandmarkTrackingCpu"
+  input_stream: "IMAGE:input_video"
+  input_side_packet: "NUM_HANDS:num_hands"
+  output_stream: "LANDMARKS:landmarks_output"  # Give distinct names
+  output_stream: "HANDEDNESS:handedness_output"
+  output_stream: "PALM_DETECTIONS:palm_detections_output"
+  output_stream: "HAND_ROIS_FROM_LANDMARKS:hand_rects_from_landmarks_output"
+  output_stream: "HAND_ROIS_FROM_PALM_DETECTIONS:hand_rects_from_palm_detections_output" # Add this output
+}
+
+# Computes rendering data for the landmarks and connections.
+node {
+  calculator: "HandRendererSubgraph"
+  # External input stream tag for subgraph : Your graph's stream name
+  input_stream: "IMAGE:input_video"  # Connects to subgraph's "IMAGE:input_image"
+  input_stream: "LANDMARKS:landmarks_output" # Connects to subgraph's "LANDMARKS:multi_hand_landmarks"
+  input_stream: "HANDEDNESS:handedness_output" # Connects to subgraph's "HANDEDNESS:multi_handedness"
+  input_stream: "NORM_RECTS:0:hand_rects_from_palm_detections_output" # Connects to subgraph's "NORM_RECTS:0:multi_palm_rects"
+  input_stream: "NORM_RECTS:1:hand_rects_from_landmarks_output" # Connects to subgraph's "NORM_RECTS:1:multi_hand_rects"
+  input_stream: "DETECTIONS:palm_detections_output" # Connects to subgraph's "DETECTIONS:palm_detections"
+  # External output stream tag for subgraph : Your graph's stream name
+  output_stream: "IMAGE:output_video_landmarks_rendered" # Connects to subgraph's "IMAGE:output_image"
+}
+
+# Compute thumbs up gesture based on landmarks
+node {
+  calculator: "ThumbsUpDetectionCalculator"
+  input_stream: "LANDMARKS:landmarks_output" # Use the renamed stream
+  output_stream: "GESTURE:detected_gesture_text"
+}
+
+# Annotates image with detected gesture text. (Optional, can also be done in main.cc)
+# This is an example of how you could add text rendering within the graph.
+# If you prefer doing it in main.cc as in the provided C++ code, this node is not strictly needed
+# and the main.cc will take output_frame from HandRendererCpu and put text on it.
+# For simplicity, the current main.cc puts text on the output of HandRendererCpu.
+# If you want this calculator to do it:
+# node {
+#   calculator: "AnnotationOverlayCalculator"
+#   input_stream: "IMAGE:output_video_landmarks_rendered"
+#   input_stream: "TEXT:detected_gesture_text"
+#   output_stream: "IMAGE:output_video" # Final output
+#   node_options: {
+#     [type.googleapis.com/mediapipe.AnnotationOverlayCalculatorOptions]: {
+#       header_text: "Gesture:" # This calculator is quite basic
+#       # More complex text formatting might require a custom renderer or doing it in main.cc
+#     }
+#   }
+# }
+
+# If not using AnnotationOverlayCalculator, directly output the rendered landmarks.
+# The main.cc will handle adding the gesture text.
+node {
+  calculator: "PassThroughCalculator"
+  input_stream: "IMAGE:output_video_landmarks_rendered"
+  output_stream: "IMAGE:output_video"
+}
+
+# Pass through the gesture string
+node {
+  calculator: "PassThroughCalculator"
+  input_stream: "detected_gesture_text" # from ThumbsUpDetectionCalculator
+  output_stream: "detected_gesture" # to main.cc
+}
