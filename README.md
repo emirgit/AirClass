@@ -181,13 +181,6 @@ The hardware module recognizes the following gestures, which control the Desktop
 
 *(Screenshots for Desktop and Mobile UI can be found in the "Test and Conclusion Report" document, pages 37-46)*
 
-## Repository Links
-
-*   **Main AirClass Combined Repository:** [https://github.com/emirgit/AirClass](https://github.com/emirgit/AirClass) (This repository)
-*   **Hardware Module:** [https://github.com/emirgit/AirClass-Hardware](https://github.com/emirgit/AirClass-Hardware)
-*   **Desktop Module:** [https://github.com/emirgit/AirClass-Desktop](https://github.com/emirgit/AirClass-Desktop)
-*   **Mobile Module:** [https://github.com/emirgit/AirClass-Mobile](https://github.com/emirgit/AirClass-Mobile)
-
 ## Future Development
 
 Based on the "Test and Conclusion Report":
